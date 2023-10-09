@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - run: compile.sh
       - run: |
-          compile.sh
           mkdir -p staging/addons/amxmodx/plugins
           mkdir -p staging/addons/amxmodx/scripting
           mkdir -p staging/addons/amxmodx/configs
@@ -25,11 +25,12 @@ jobs:
           cd staging
           tar -czf ../${{ github.ref_name }}.tar.gz *
           cd ..
+        if: startsWith(github.ref, 'refs/tags/')
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: compiled
-          path: ${{ github.workspace }}/${{ github.ref_name }}.tar.gz
+          path: ${{ github.workspace }}/compiled
       # In Settings / Actions / General / Workflow Permissions make sure you select "read and write permissions"
       - name: Release
         uses: softprops/action-gh-release@v1
