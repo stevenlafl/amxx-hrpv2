@@ -1,0 +1,19 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    container:
+      image: stevenlafl/amxmodx-ci
+      options: --user root -v ${{ github.workspace }}:/app
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: compile.sh
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled
+          path: ${{ github.workspace }}/compiled
+          runs-on: ubuntu-latest
