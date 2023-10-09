@@ -1,0 +1,12 @@
+Chat commands:
+/cuff
+/rope
+/tazer
+/togglecam
+/help
+/laws
+/commands
+/resign
+/jobs
+/guns
+/stuck
